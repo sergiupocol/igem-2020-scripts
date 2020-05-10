@@ -2,6 +2,7 @@ import sys
 sys.path.insert(0, '../pypdb')
 from pypdb import *
 from Bio.PDB import *
+import pandas as pd
 # OSPREY identifies residues by their peptide chain and residue number
 # Given residue number from Alanine_Scanning_Binding_Energies_Result.csv
 # AND the peptide chain from the pdb file, generate the osprey code
@@ -41,9 +42,21 @@ for model in structure:
             ligand_chain = chain.get_id()
             break
 
-osprey_code = ligand_chain+ligan_name
+ligand_osprey_code = ligand_chain+ligand_name
 
+# RESULTS file
+result_file = pd.read_csv('Alanine_Scanning_Binding_Energies_Result.csv')
 
-        
+osprey_codes = []
 
-
+for index, row in result_file.itterows():
+    receptor = row['Receptor']
+    res_name = receptor[:3]
+    res_number = receptor[4:receptor[4:receptor.length].find('_')]
+    res_id = (res_name, res_number, ' ')
+    for model in structure:
+        for chain in model:
+            if chain.has_id(res_id):
+                res_chain = chain.get_id()
+                osprey_codes.append(res_chain+res_name)
+                break
