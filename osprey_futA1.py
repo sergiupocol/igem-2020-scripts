@@ -3,7 +3,7 @@ import osprey
 # initializing osprey
 osprey.start()
 
-strand = osprey.Strand('2pt1.pdb')
+strand = osprey.Strand('2pt2.pdb')
 
 # On strand we will define both the sequence and conformation space
 # On every residue for which setLibraryRotamers is not called
